@@ -42,7 +42,7 @@ async function renderBookList(bookList) {
                 bookList.length > 0 && searchField.value && root.insertAdjacentHTML('beforeend', bookdetaljer(book));
             }
         });
-
+        //ta bort detaljer när musen hoovrar bort
         booken.addEventListener("mouseout", function(e) {
             let bookDetail = document.querySelector("#bookDetail");
             if(bookDetail)
@@ -64,6 +64,22 @@ async function renderDetails(e) {
       document.body.insertAdjacentHTML('afterbegin',RenderDetailsHTML(item));
   }
   updatePos();
+}
+//uppdatera postion funktion
+function updatePos() {
+  let pos = document.querySelector('.book-details').getBoundingClientRect();
+
+  if (pos.right > window.innerWidth) {
+    document.querySelector('.book-details').style.left = (window.innerWidth - pos.width) + 'px';
+  } else {
+    document.querySelector('.book-details').style('right', 0); // om det är utanför fönstret, flytta tillbaka den till höger sida av skärmen  
+  }
+
+  if (pos.bottom > window.innerHeight) {
+    document.querySelector('.book-details').style.top = (window.innerHeight - pos.height) + 'px';
+  } else {
+    document.querySelector('.book-details').style('top', 0); // om det är utanför fönstret, flytta tillbaka den till toppen av skärmen  
+  }    
 }
 
 //ta bort detaljer när musen hoovrar bort
