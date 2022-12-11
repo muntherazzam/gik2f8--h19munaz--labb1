@@ -3,10 +3,10 @@
 const bookdetaljer = (book) => {
     
     let html = `
-    <div id="bookDetail" class="book__details  fixed  right-5 rounded-full bg-white/50 p-4  top-20 m-20 
+    <div id="bookDetail" class="book__details  fixed  right-5 rounded-full bg-white/20 p-16  top-20 m-20 
     flex text-left text-black-500 space-y-2 space-x-2">
-    <div id="bookimg" class="book_img rounded-full transition-transform top-20 right-top w-60 h-60 m-8 top-25">
-        <img class="book_img rounded-full transition-transform top-20 right-top w-60 h-60 m-8 top-25" src="${book.coverImage}" alt="ingen bild hittades">
+    <div id="bookimg" class="book_img rounded-full transition-transform top-20 right-top w-70 h-70 m-2 top-25">
+        <img class="book_img rounded-full transition-transform top-20 right-top w-60 h-60 m-2 top-25" src="${book.coverImage}" alt="ingen bild hittades">
         </div> 
          
         <div class="detail__list">
