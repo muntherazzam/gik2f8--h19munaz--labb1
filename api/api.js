@@ -7,3 +7,9 @@ async function getAll() {
 
   return result;
 }
+async function getItem(id) {
+  const result = await fetch(url+id)
+      .then(result => result.json())
+      .catch(e => e);
+  return result;
+}

@@ -1,4 +1,5 @@
 'use strict';
+//här skapade vi booklistan, skickade med parmeter e
 
 let bookList = [];
 
@@ -6,11 +7,11 @@ window.addEventListener('load', () => {
   getAll().then((apiBooks) => (bookList = apiBooks));
 });
 
-searchField.addEventListener('keyup', (e) =>
+searchField.addEventListener('keyup', (x) =>
   renderBookList(                                                
  
     bookList.filter(({ title, author }) => {
-      const searchTerm = e.target.value.toLowerCase();
+      const searchTerm = x.target.value.toLowerCase();
       return (
         title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         author.toLowerCase().includes(searchTerm.toLowerCase())
@@ -19,12 +20,9 @@ searchField.addEventListener('keyup', (e) =>
   )
 );
 
-//1. We have a search field and a book list.
-//2. When the page loads, we get all the books from the API and store them in the bookList array.
-//3. When the user types in the search field, we filter the bookList array and render the filtered list
 
-
-function renderBookList(bookList) {
+//hämtar informationen om boken från api-t
+async function renderBookList(bookList) {
   const existingElement = document.querySelector('.book-list');
 
   const root = document.getElementById('root');
@@ -33,19 +31,19 @@ function renderBookList(bookList) {
   bookList.length > 0 && searchField.value && root.insertAdjacentHTML('beforeend', BookList(bookList));
 
 
-  let bookUl = document.querySelector(".book-list");
+  let booken = document.querySelector(".book-list");
 
-    if (bookUl){
-        bookUl.addEventListener("mouseover", function(e) {
-            if (e.target && e.target.matches("li.book-list__item")) {
-                let bookId = e.target.value
+    if (booken){
+        booken.addEventListener("mouseover", function(x) {
+            if (x.target && x.target.matches("li.book-list__item")) {
+                let bookId = x.target.value
                 let book = bookList.find(book => book.id === bookId)
                 existingElement && root.removeChild(existingElement);
-                bookList.length > 0 && searchField.value && root.insertAdjacentHTML('beforeend', bookDetails(book));
+                bookList.length > 0 && searchField.value && root.insertAdjacentHTML('beforeend', bookdetaljer(book));
             }
         });
 
-        bookUl.addEventListener("mouseout", function(e) {
+        booken.addEventListener("mouseout", function(e) {
             let bookDetail = document.querySelector("#bookDetail");
             if(bookDetail)
                 bookDetail.remove();
@@ -53,3 +51,39 @@ function renderBookList(bookList) {
     }
 }
 
+//
+
+async function renderDetails(e) {
+  let bookId = e.target.id.split('book_')[1];
+  let item = await getItem(bookId);
+  
+  if (!document.getElementById('book_details')) {
+      document.body.insertAdjacentHTML('beforeend',RenderDetailsHTML(item));
+  } else {
+      removeDetails()
+      document.body.insertAdjacentHTML('afterbegin',RenderDetailsHTML(item));
+  }
+  updatePos();
+}
+
+//ta bort detaljer när musen hoovrar bort
+function removeDetails() {
+  const book_details_list = document.querySelectorAll('.book-details');
+
+  book_details_list.forEach(item => {
+  item.remove();
+  });
+}
+
+
+
+
+
+
+
+
+//för att ta bort cookies så blir sidan snabbare att laddas
+function clearCookies() {
+  document.cookie = "";
+}
+clearCookies();
